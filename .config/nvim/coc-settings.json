@@ -1,0 +1,4 @@
+{
+    "git.enableGutters": false,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true
+}

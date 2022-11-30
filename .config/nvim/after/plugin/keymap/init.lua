@@ -1,0 +1,8 @@
+vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>l', ':noh<CR>', { noremap= true})
+vim.api.nvim_set_keymap('n', '<leader>e', ':Explore<CR>', { noremap= true})
+vim.api.nvim_set_keymap('n', '<leader>ve', ':Vexplore<CR>', { noremap= true})
+vim.api.nvim_set_keymap('n', '<leader>s', ':split<CR>', { noremap= true})
+vim.api.nvim_set_keymap('n', '<leader>vs', ':vsplit<CR>', { noremap= true})
+vim.api.nvim_set_keymap('n', '<leader>p', ':Prettier<CR>', { noremap= true})
+vim.api.nvim_set_keymap('n', '<leader>c', ':split<CR><C-w>j20<C-w>_:lua require("harpoon.term").gotoTerminal(1)<CR><C-w>k:Vexplore<CR>', { noremap= true})

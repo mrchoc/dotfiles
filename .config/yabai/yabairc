@@ -1,10 +1,8 @@
 #!/usr/bin/env sh
 #YABAI STUFF
 
-# bsp or float (default: bsp)
 #yabai -m config layout bsp
 
-# My custom space names for my 3 monitor setup. These names are used in some of my scripts.
 #Create space on the active display
 
 yabai -m space --create
@@ -17,7 +15,7 @@ yabai -m space --destroy
 yabai -m rule --add app="^System Preferences$" manage=off
 yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^Karabiner-EventViewer$" manage=off
-yabai -m rule --add app="^Finder$" manage=off
+yabai -m rule --add app="^Finder$" manage=off sticky=on
 yabai -m rule --add app="^Disk Utility$" manage=off
 yabai -m rule --add app="^System Information$" manage=off
 yabai -m rule --add app="^Activity Monitor$" manage=off
@@ -32,28 +30,25 @@ yabai -m rule --add app="^Discord$" manage=off
 yabai -m rule --add app="^App Store$" manage=off
 yabai -m rule --add app="^Home Assistant$" manage=off
 yabai -m rule --add app="^Steam$" manage=off
-yabai -m rule --add app="^Microsoft Outlook$" manage=off
+yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^Archetype" manage=off
+yabai -m rule --add app="^Riot Client$" manage=off
 
-#find ~/Library/Parallels/Applications\ Menus/ -maxdepth 3 -type f | awk -F'/' '{ print $NF; }' | awk '{$1=$1};1' | sort | uniq | tr "\n" "\0" | xargs -0 -I{} yabai -m rule --add app="^{}\$" title=".*" manage=on
-
-## Some random global settings
+:# Some random global settings
 #yabai -m config focus_follows_mouse          autoraise
 #yabai -m config focus_follows_mouse          on
 # New window spawns to the right if vertical split, or bottom if horizontal split
-yabai -m config window_placement second_child
+yabai -m config window_placement first_child
 yabai -m config window_topmost off
 #yabai -m config window_shadow float
-yabai -m config window_opacity offs
-yabai -m config active_window_opacity 1.0
+yabai -m config window_opacity off
+yabai -m config normal_window_opacity 0.7
 yabai -m config window_shadow off
-#yabai -m config normal_window_opacity        0.97
-#yabai -m config window_border                on | off
 
-## WITH SIP ENABLED (Installed Limelight seperately, Don't need this)
 yabai -m config window_border on
-
-## WTIH SIP DISABLED (Limelight build into Yabai, enable it here)
-yabai -m config window_border_width 4
+yabai -m config window_border_blur off
+yabai -m config window_border_radius 11
+yabai -m config window_border_width 2
 yabai -m config active_window_border_color 0xFFbd93f9
 yabai -m config normal_window_border_color 0x00FFFFFF
 
@@ -79,28 +74,11 @@ yabai -m config left_padding 5
 yabai -m config right_padding 5
 yabai -m config window_gap 5
 
-# #Ubersicht widget bar stuff
-#yabai -m signal --add event=space_changed \
-#action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
-#yabai -m signal --add event=display_changed \
-#action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
-
-#yabai -m signal --add event=space_changed \
-#action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-secondary-jsx\"'"
-#yabai -m signal --add event=display_changed \
-#action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-secondary-jsx\"'"
-
-# signals
-# yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
-#yabai -m signal --add event=space_changed action="yabai -m window --focus $(yabai -m query --windows --window | jq ".id")"
-# yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
-
-#testing signals
-# yabai -m signal --add event=window_destroyed action="terminal-notifier -message 'window_destroyed'"
-# yabai -m signal --add event=application_terminated action="terminal-notifier -message 'application_terminated'"
-
 ## If I close the active window, focus on any other visible window.
-# yabai -m signal --add event=space_changed action="export CUR_ACTIVE_APP=\"iTerm2\""
+yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus first"
+yabai -m signal --add event=window_minimized action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus first"
+yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus first"
+
 sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 

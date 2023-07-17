@@ -12,5 +12,5 @@ vim.opt.relativenumber = true
 vim.opt.nu = true
 vim.opt.signcolumn = "yes"
 vim.opt.termguicolors = true
-vim.cmd('set colorcolumn=80')
+vim.opt.colorcolumn = "80"
 vim.cmd('set guicursor+=a:-blinkwait75-blinkoff100-blinkon125')

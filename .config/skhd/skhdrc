@@ -6,10 +6,10 @@ hyper - l: yabai -m window --focus east;
 hyper - m: yabai -m window --minimize; yabai -m window --focus mouse;
 
 # Move window
-hyper - d: yabai -m window --swap east;
-hyper - a: yabai -m window --swap west;
-hyper - w: yabai -m window --swap north;
-hyper - s: yabai -m window --swap south;
+# hyper - d: yabai -m window --swap east;
+# hyper - a: yabai -m window --swap west;
+# hyper - w: yabai -m window --swap north;
+# hyper - s: yabai -m window --swap south;
 hyper - f: yabai -m window --toggle zoom-fullscreen;
 
 # Float window
@@ -26,6 +26,8 @@ hyper - 2: yabai -m window --space 2;
 hyper - 3: yabai -m window --space 3;
 hyper - q: yabai -m space --focus prev;
 hyper - e: yabai -m space --focus next;
+hyper - o: yabai -m space --create;
+hyper - d: yabai -m space --destroy;
 
-ctrl + alt + cmd - r: launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai";
-ctrl + alt + cmd - h: launchctl kickstart -k "gui/${UID}/homebrew.mxcl.skhd";
+ctrl + alt + cmd - r: yabai --restart-service
+ctrl + alt + cmd - h: skhd --restart-service

@@ -1,18 +1,13 @@
 #!/usr/bin/env sh
+
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
 #YABAI STUFF
 
 #yabai -m config layout bsp
 
-#Create space on the active display
-
-yabai -m space --create
-
-#Delete focused space and focus first space on display
-
-yabai -m space --destroy
-
 # float system preferences. Most of these just diable Yabai form resizing them.
-yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^Karabiner-EventViewer$" manage=off
 yabai -m rule --add app="^Finder$" manage=off sticky=on
@@ -29,12 +24,14 @@ yabai -m rule --add app="^TinkerTool$" manage=off
 yabai -m rule --add app="^Discord$" manage=off
 yabai -m rule --add app="^App Store$" manage=off
 yabai -m rule --add app="^Home Assistant$" manage=off
-yabai -m rule --add app="^Steam$" manage=off
+yabai -m rule --add app="^Steam$" manage=off border=off
 yabai -m rule --add app="^Calculator$" manage=off
 yabai -m rule --add app="^Archetype" manage=off
 yabai -m rule --add app="^Riot Client$" manage=off
+yabai -m rule --add app="^League of Legends$" manage=off
+yabai -m rule --add app="^VLC" manage=off
 
-:# Some random global settings
+# Some random global settings
 #yabai -m config focus_follows_mouse          autoraise
 #yabai -m config focus_follows_mouse          on
 # New window spawns to the right if vertical split, or bottom if horizontal split
@@ -78,8 +75,5 @@ yabai -m config window_gap 5
 yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus first"
 yabai -m signal --add event=window_minimized action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus first"
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus first"
-
-sudo yabai --load-sa
-yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 echo "yabai configuration loaded.."

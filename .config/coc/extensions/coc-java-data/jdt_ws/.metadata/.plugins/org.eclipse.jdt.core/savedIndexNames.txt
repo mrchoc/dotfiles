@@ -1,3 +1,0 @@
-INDEX VERSION 1.132+/Users/ryanloh/.config/coc/extensions/coc-java-data/jdt_ws/.metadata/.plugins/org.eclipse.jdt.core
-1865797976.index
-3415799136.index

@@ -1,0 +1,87 @@
+{
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.9.3",
+  "schemes" : [
+    {
+      "buttons" : {
+        "universalBackForward" : true
+      },
+      "if" : {
+        "device" : {
+          "category" : "mouse"
+        }
+      },
+      "pointer" : {
+        "acceleration" : 0,
+        "speed" : 0.300000000000000256,
+        "disableAcceleration" : false
+      },
+      "scrolling" : {
+        "reverse" : {
+          "horizontal" : false,
+          "vertical" : true
+        },
+        "distance" : 7
+      }
+    },
+    {
+      "buttons" : {
+        "universalBackForward" : true
+      },
+      "if" : {
+        "device" : {
+          "productName" : "Apple Internal Keyboard \/ Trackpad",
+          "productID" : "0x342",
+          "category" : "trackpad",
+          "vendorID" : "0x5ac"
+        }
+      },
+      "pointer" : {
+        "disableAcceleration" : false
+      },
+      "scrolling" : {
+        "reverse" : {
+          "vertical" : false
+        },
+        "distance" : "auto"
+      }
+    },
+    {
+      "buttons" : {
+        "universalBackForward" : true
+      },
+      "if" : {
+        "device" : {
+          "productName" : "Razer Viper Ultimate Dongle",
+          "productID" : "0x7b",
+          "category" : "mouse",
+          "vendorID" : "0x1532"
+        }
+      },
+      "pointer" : {
+        "acceleration" : 0,
+        "speed" : 0.4,
+        "disableAcceleration" : false
+      },
+      "scrolling" : {
+        "reverse" : {
+          "horizontal" : false,
+          "vertical" : true
+        },
+        "distance" : 3
+      }
+    },
+    {
+      "pointer" : {
+        "speed" : 0.37
+      },
+      "if" : {
+        "device" : {
+          "productName" : "X2 Wireless",
+          "productID" : "0xfa7c",
+          "category" : "mouse",
+          "vendorID" : "0x25a7"
+        }
+      }
+    }
+  ]
+}

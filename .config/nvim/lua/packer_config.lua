@@ -1,7 +1,7 @@
 vim.cmd [[packadd packer.nvim]]
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = {'javascript', 'typescript', 'tsx', 'python', 'go', 'c', 'dart', 'lua', 'html', 'css', 'prisma', 'java', 'rust', 'toml'},
+  ensure_installed = {'javascript', 'typescript', 'tsx', 'python', 'go', 'c', 'dart', 'lua', 'html', 'css', 'prisma', 'java', 'rust', 'toml', 'markdown', 'markdown_inline'},
   sync_install = true,
   highlight = { enable = true },
 }
@@ -25,6 +25,15 @@ require('toggleterm').setup {
   open_mapping = [[<c-t>]],
   insert_mappings = true,
   terminal_mappings = true,
+  float_opts = {
+    width = function()
+      return math.floor(vim.o.columns * 0.8)
+    end,
+    height = function()
+      return math.floor(vim.o.lines * 0.85)
+    end,
+    border = "curved"
+  },
 }
 
 require('dressing').setup {
@@ -74,7 +83,12 @@ return require('packer').startup(function(use)
       {'L3MON4D3/LuaSnip'},     -- Required
     }
   }
+  use {'jose-elias-alvarez/null-ls.nvim'}
+  use {'MunifTanjim/prettier.nvim'}
   use {'stevearc/dressing.nvim'}
   use {'nvim-telescope/telescope.nvim', branch = '0.1.x'}
+  use({
+    "iamcco/markdown-preview.nvim",
+    run = function() vim.fn["mkdp#util#install"]() end,
+  })
 end)
-

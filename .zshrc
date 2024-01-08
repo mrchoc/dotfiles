@@ -110,12 +110,17 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias python2="/Users/ryanloh/.pyenv/versions/2.7.18/bin/python2.7"
+alias pip2="/Users/ryanloh/.pyenv/versions/2.7.18/bin/pip2.7"
+
+alias l="exa -lah"
 alias ll="exa -lah"
 alias lt="exa -T"
 function ld() {
     exa -lahT -L "$1" "$2"
 }
 alias nv="nvim"
+
 export PATH=/opt/homebrew/bin:$PATH
 export NVM_DIR="$HOME/.nvm"
 export NVM_LAZY_LOAD=true
@@ -125,8 +130,8 @@ export NVM_LAZY_LOAD=true
 _CONDA_ROOT="/Users/ryanloh/miniforge3"
 # Copyright (C) 2012 Anaconda, Inc
 # SPDX-License-Identifier: BSD-3-Clause
-\. "$_CONDA_ROOT/etc/profile.d/conda.sh" || return $?
-conda activate "$@"
+#\. "$_CONDA_ROOT/etc/profile.d/conda.sh" || return $?
+#conda activate "$@"
 PROMPT=$(echo $PROMPT | sed 's/(base) //')
 export PATH="/Users/ryanloh/.rustup/toolchains/stable-aarch64-apple-darwin/bin:$PATH"
 

@@ -1,15 +1,24 @@
 vim.cmd [[packadd packer.nvim]]
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = {'javascript', 'typescript', 'tsx', 'python', 'go', 'c', 'dart', 'lua', 'html', 'css', 'prisma', 'java', 'rust', 'toml', 'markdown', 'markdown_inline'},
+  ensure_installed = {'javascript', 'typescript', 'tsx', 'python', 'go', 'c', 'dart', 'lua', 'html', 'css', 'prisma', 'java', 'rust', 'toml', 'markdown', 'markdown_inline', 'vimdoc', 'terraform'},
   sync_install = true,
-  highlight = { enable = true },
+  highlight = { 
+    enable = true,
+    disable = {
+      "txt"
+    }
+  },
 }
 
 vim.opt.list = true
 vim.opt.listchars:append("space:⋅")
 
-require("ibl").setup {}
+require("ibl").setup {
+  indent = {
+    char = "▏"
+  }
+}
 
 require('gitsigns').setup {
   current_line_blame_opts = {
@@ -79,7 +88,7 @@ return require('packer').startup(function(use)
       {'L3MON4D3/LuaSnip'},     -- Required
     }
   }
-  use {'jose-elias-alvarez/null-ls.nvim'}
+  use {'nvimtools/none-ls.nvim'}
   use {'MunifTanjim/prettier.nvim'}
   use {'stevearc/dressing.nvim'}
   use {'nvim-telescope/telescope.nvim', branch = '0.1.x'}

@@ -3,6 +3,7 @@ export LANG=en_US.UTF-8
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export GPG_TTY=$(tty)
+export PATH="/opt/homebrew/opt/gradle@7/bin:$PATH"
 
 # test startup time
 timezsh() {
@@ -113,13 +114,16 @@ source $ZSH/oh-my-zsh.sh
 alias python2="/Users/ryanloh/.pyenv/versions/2.7.18/bin/python2.7"
 alias pip2="/Users/ryanloh/.pyenv/versions/2.7.18/bin/pip2.7"
 
-alias l="exa -lah"
-alias ll="exa -lah"
+
+alias ls="exa"
+alias ll="exa -la"
 alias lt="exa -T"
 function ld() {
-    exa -lahT -L "$1" "$2"
+    exa -laT -L "$1" "$2"
 }
-alias nv="nvim"
+alias vim="nvim"
+
+alias yabai.up='$HOME/.config/yabai/./update.sh'
 
 export PATH=/opt/homebrew/bin:$PATH
 export NVM_DIR="$HOME/.nvm"
@@ -130,8 +134,8 @@ export NVM_LAZY_LOAD=true
 _CONDA_ROOT="/Users/ryanloh/miniforge3"
 # Copyright (C) 2012 Anaconda, Inc
 # SPDX-License-Identifier: BSD-3-Clause
-#\. "$_CONDA_ROOT/etc/profile.d/conda.sh" || return $?
-#conda activate "$@"
+\. "$_CONDA_ROOT/etc/profile.d/conda.sh" || return $?
+conda activate "$@"
 PROMPT=$(echo $PROMPT | sed 's/(base) //')
 export PATH="/Users/ryanloh/.rustup/toolchains/stable-aarch64-apple-darwin/bin:$PATH"
 
@@ -164,13 +168,9 @@ export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 export JAVA_HOME=$(/usr/libexec/java_home)
 
 # pomodoro
-alias work="timer 25m && terminal-notifier -message 'Pomodoro'\
-    -title 'Work Timer is up! Take a Break 😊'\
-    -sound Glass"
+alias work="timer 25m && osascript -e 'display notification \"Work Timer is up! Take a Break 😊\" with title \"Pomodoro\"'"
 
-alias rest="timer 5m && terminal-notifier -message 'Pomodoro'\
-    -title 'Break is over! Get back to work 😬'\
-    -sound Ping"
+alias rest="timer 5m && osascript -e 'display notification \"Break is over! Get back to work 😬\" with title \"Pomodoro\"'"
 
 # openvpn
 export PATH="/opt/homebrew/Cellar/openvpn/2.6.0/sbin:$PATH"
@@ -269,4 +269,8 @@ ZSH_HIGHLIGHT_STYLES[cursor]='standout'
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/opt/homebrew/share/zsh-syntax-highlighting/highlighters
 DRACULA_DISPLAY_CONTEXT=1
-export PATH="/opt/homebrew/opt/gradle@7/bin:$PATH"
+
+autoload -U +X bashcompinit && bashcompinit
+autoload -Uz compinit
+eval "$(zoxide init zsh --cmd cd)"
+complete -o nospace -C /opt/homebrew/bin/terraform terraform

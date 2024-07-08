@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 # If you come from bash you might have to change your $PATH.
@@ -82,7 +89,7 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-nvm git)
+plugins=(nvm git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -116,26 +123,27 @@ alias pip2="/Users/ryanloh/.pyenv/versions/2.7.18/bin/pip2.7"
 
 
 alias ls="exa"
-alias ll="exa -la"
-alias lt="exa -T"
+alias la="exa -a"
+alias ll="exa -lah"
 function ld() {
-    exa -laT -L "$1" "$2"
+    exa -lahTL "$1"
 }
 alias vim="nvim"
 
 alias yabai.up='$HOME/.config/yabai/./update.sh'
 
 export PATH=/opt/homebrew/bin:$PATH
+export HOMEBREW_NO_AUTO_UPDATE=1
 export NVM_DIR="$HOME/.nvm"
 export NVM_LAZY_LOAD=true
 #[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 #[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-_CONDA_ROOT="/Users/ryanloh/miniforge3"
+#_CONDA_ROOT="/Users/ryanloh/miniforge3"
 # Copyright (C) 2012 Anaconda, Inc
 # SPDX-License-Identifier: BSD-3-Clause
-\. "$_CONDA_ROOT/etc/profile.d/conda.sh" || return $?
-conda activate "$@"
+#\. "$_CONDA_ROOT/etc/profile.d/conda.sh" || return $?
+#conda activate "$@"
 PROMPT=$(echo $PROMPT | sed 's/(base) //')
 export PATH="/Users/ryanloh/.rustup/toolchains/stable-aarch64-apple-darwin/bin:$PATH"
 
@@ -272,5 +280,9 @@ DRACULA_DISPLAY_CONTEXT=1
 
 autoload -U +X bashcompinit && bashcompinit
 autoload -Uz compinit
-eval "$(zoxide init zsh --cmd cd)"
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

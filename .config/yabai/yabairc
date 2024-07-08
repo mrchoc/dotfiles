@@ -7,7 +7,8 @@ sudo yabai --load-sa
 #yabai -m config layout bsp
 
 # float system preferences. Most of these just diable Yabai form resizing them.
-yabai -m rule --add app=".*" layer=normal
+yabai -m rule --add app=".*" sub-layer=normal
+yabai -m rule --apply
 yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^Karabiner-EventViewer$" manage=off
@@ -32,6 +33,8 @@ yabai -m rule --add app="^Riot Client$" manage=off
 yabai -m rule --add app="^League of Legends$" manage=off
 yabai -m rule --add app="^VLC" manage=off
 yabai -m rule --add app="^Cisco Secure Client" manage=off
+yabai -m rule --add app="^Numi" manage=off
+yabai -m rule --add app="^Calendar$" manage=off
 
 # Some random global settings
 #yabai -m config focus_follows_mouse          autoraise
@@ -76,6 +79,6 @@ yabai -m signal --add event=window_minimized action="yabai -m query --windows --
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus first"
 yabai -m signal --add event=space_changed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus first"
 
-borders active_color=0xFFbd93f9 inactive_color=0x00FFFFFF width=4.0 style="round" 2>/dev/null 1>&2 &
+borders active_color=0xFFc9a8fa inactive_color=0x00FFFFFF width=4.0 style="round" 2>/dev/null 1>&2 &
 
 echo "yabai configuration loaded.."

@@ -1,11 +1,14 @@
+[shell]
+program = "/bin/zsh"
+
 [font]
 size = 14
 normal = { family = "RobotoMono Nerd Font" , style = "Medium" }
 
 [window]
-padding = { x = 10, y = 10 }
+padding = { y = 10 }
 decorations = "Buttonless"
-opacity = 0.8
+opacity = 0.90
 
 [cursor]
 style = { shape = "Block", blinking = "Always" }

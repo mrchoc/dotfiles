@@ -15,7 +15,7 @@ style = { shape = "Block", blinking = "Always" }
 
 [colors.primary]
 
-background = "#191A22"
+background = "#14151b"
 foreground = "#f8f8f2"
 bright_foreground = "#ffffff"
 

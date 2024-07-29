@@ -1,5 +1,5 @@
 sudo apt update
-sudo apt install vim snapd zsh zsh-syntax-highlighting sway curl
+sudo apt install -y vim snapd zsh zsh-syntax-highlighting sway curl gpg
 source /etc/profile
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -25,3 +25,10 @@ wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/do
 && fc-cache -fv
 
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+
+sudo mkdir -p /etc/apt/keyrings
+wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
+echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
+sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
+sudo apt update
+sudo apt install -y eza

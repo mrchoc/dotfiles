@@ -7,8 +7,6 @@ git clone https://github.com/dracula/zsh.git
 mv ~/zsh/dracula.zsh-theme ~/.oh-my-zsh/themes && mv ~/zsh/lib ~/.oh-my-zsh/themes
 rm -rf ~/zsh
 
-git clone -b linux https://github.com/mrchoc/dotfiles.git
-
 cp -r ~/dotfiles/* ~
 mv ~/.git ~/dotfiles
 

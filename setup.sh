@@ -9,10 +9,8 @@ rm -rf ~/zsh
 
 git clone -b linux https://github.com/mrchoc/dotfiles.git
 
-cp -r ~/dotfiles/.config/* ~/.config
-cp ~/dotfiles/.zshrc ~
-cp ~/dotfiles/.p10k.zsh ~
-cp ~/dotfiles/.tmux.conf ~
+cp -r ~/dotfiles/* ~
+mv ~/.git ~/dotfiles
 
 sudo snap install alacritty
 

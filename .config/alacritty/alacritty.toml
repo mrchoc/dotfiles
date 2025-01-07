@@ -1,4 +1,4 @@
-[shell]
+[terminal.shell]
 program = "/bin/zsh"
 
 [font]
@@ -6,9 +6,10 @@ size = 14
 normal = { family = "RobotoMono Nerd Font" , style = "Medium" }
 
 [window]
-padding = { y = 10 }
+padding = { y = 3, x = 3 }
 decorations = "Buttonless"
-opacity = 0.90
+opacity = 0.85
+# blur = true
 
 [cursor]
 style = { shape = "Block", blinking = "Always" }

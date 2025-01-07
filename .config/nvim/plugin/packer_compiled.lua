@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/Users/ryanloh/.cache/nvim/packer_hererocks/2.1.1703358377/share/lua/5.1/?.lua;/Users/ryanloh/.cache/nvim/packer_hererocks/2.1.1703358377/share/lua/5.1/?/init.lua;/Users/ryanloh/.cache/nvim/packer_hererocks/2.1.1703358377/lib/luarocks/rocks-5.1/?.lua;/Users/ryanloh/.cache/nvim/packer_hererocks/2.1.1703358377/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/Users/ryanloh/.cache/nvim/packer_hererocks/2.1.1703358377/lib/lua/5.1/?.so"
+local package_path_str = "/Users/ryanloh/.cache/nvim/packer_hererocks/2.1.1716656478/share/lua/5.1/?.lua;/Users/ryanloh/.cache/nvim/packer_hererocks/2.1.1716656478/share/lua/5.1/?/init.lua;/Users/ryanloh/.cache/nvim/packer_hererocks/2.1.1716656478/lib/luarocks/rocks-5.1/?.lua;/Users/ryanloh/.cache/nvim/packer_hererocks/2.1.1716656478/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/Users/ryanloh/.cache/nvim/packer_hererocks/2.1.1716656478/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -84,6 +84,16 @@ _G.packer_plugins = {
     path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/auto-pairs",
     url = "https://github.com/jiangmiao/auto-pairs"
   },
+  ["cheatsheet.nvim"] = {
+    loaded = true,
+    path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/cheatsheet.nvim",
+    url = "https://github.com/sudormrfbin/cheatsheet.nvim"
+  },
+  ["cloak.nvim"] = {
+    loaded = true,
+    path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/cloak.nvim",
+    url = "https://github.com/laytan/cloak.nvim"
+  },
   ["cmp-nvim-lsp"] = {
     loaded = true,
     path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
@@ -104,6 +114,12 @@ _G.packer_plugins = {
     path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
   },
+  ["gp.nvim"] = {
+    config = { "\27LJ\2\n¡\2\0\0\4\0\n\0\0145\0\5\0005\1\3\0005\2\0\0005\3\1\0=\3\2\2=\2\4\1=\1\6\0006\1\a\0'\3\b\0B\1\2\0029\1\t\1\18\3\0\0B\1\2\1K\0\1\0\nsetup\agp\frequire\14providers\1\0\1\14providers\0\fcopilot\1\0\1\fcopilot\0\vsecret\1\4\0\0\tbash\a-cScat ~/.config/github-copilot/apps.json | sed -e 's/.*oauth_token...//;s/\".*//'\1\0\2\rendpoint3https://api.githubcopilot.com/chat/completions\vsecret\0\0" },
+    loaded = true,
+    path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/gp.nvim",
+    url = "https://github.com/robitx/gp.nvim"
+  },
   ["indent-blankline.nvim"] = {
     loaded = true,
     path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
@@ -113,6 +129,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
     url = "https://github.com/VonHeikemen/lsp-zero.nvim"
+  },
+  ["lualine.nvim"] = {
+    loaded = true,
+    path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/lualine.nvim",
+    url = "https://github.com/nvim-lualine/lualine.nvim"
   },
   ["markdown-preview.nvim"] = {
     loaded = true,
@@ -154,6 +175,12 @@ _G.packer_plugins = {
     path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
+  ["nvim-web-devicons"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/opt/nvim-web-devicons",
+    url = "https://github.com/nvim-tree/nvim-web-devicons"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/packer.nvim",
@@ -163,6 +190,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
+  },
+  ["popup.nvim"] = {
+    loaded = true,
+    path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/popup.nvim",
+    url = "https://github.com/nvim-lua/popup.nvim"
   },
   ["prettier.nvim"] = {
     loaded = true,
@@ -179,16 +211,6 @@ _G.packer_plugins = {
     path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
   },
-  ["vim-airline"] = {
-    loaded = true,
-    path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/vim-airline",
-    url = "https://github.com/vim-airline/vim-airline"
-  },
-  ["vim-airline-themes"] = {
-    loaded = true,
-    path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/vim-airline-themes",
-    url = "https://github.com/vim-airline/vim-airline-themes"
-  },
   ["vim-devicons"] = {
     loaded = true,
     path = "/Users/ryanloh/.local/share/nvim/site/pack/packer/start/vim-devicons",
@@ -197,6 +219,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: gp.nvim
+time([[Config for gp.nvim]], true)
+try_loadstring("\27LJ\2\n¡\2\0\0\4\0\n\0\0145\0\5\0005\1\3\0005\2\0\0005\3\1\0=\3\2\2=\2\4\1=\1\6\0006\1\a\0'\3\b\0B\1\2\0029\1\t\1\18\3\0\0B\1\2\1K\0\1\0\nsetup\agp\frequire\14providers\1\0\1\14providers\0\fcopilot\1\0\1\fcopilot\0\vsecret\1\4\0\0\tbash\a-cScat ~/.config/github-copilot/apps.json | sed -e 's/.*oauth_token...//;s/\".*//'\1\0\2\rendpoint3https://api.githubcopilot.com/chat/completions\vsecret\0\0", "config", "gp.nvim")
+time([[Config for gp.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

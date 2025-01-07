@@ -1,9 +1,28 @@
 vim.cmd [[packadd packer.nvim]]
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = {'javascript', 'typescript', 'tsx', 'python', 'go', 'c', 'dart', 'lua', 'html', 'css', 'prisma', 'java', 'rust', 'toml', 'markdown', 'markdown_inline', 'vimdoc', 'terraform'},
+  ensure_installed = {
+    'javascript',
+    'typescript',
+    'tsx',
+    'python',
+    'go',
+    'c',
+    'dart',
+    'lua',
+    'html',
+    'css',
+    'prisma',
+    'java',
+    'rust',
+    'toml',
+    'markdown', 'markdown_inline',
+    'vimdoc',
+    'terraform',
+    'yaml'
+  },
   sync_install = true,
-  highlight = { 
+  highlight = {
     enable = true,
     disable = {
       "txt"
@@ -99,10 +118,36 @@ require('telescope').setup {
   }
 }
 
+require('lualine').setup {
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+}
+
+require("cheatsheet").setup({
+  bundled_cheatsheets = {
+    enabled = { "tmux" },
+  },
+  bundled_plugin_cheatsheets = {
+    enabled = { "gitsigns.nvim" },
+  }
+})
+
+require('cloak').setup({
+  enabled = false,
+})
+
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
-  use 'vim-airline/vim-airline'
-  use 'vim-airline/vim-airline-themes'
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }
   use { 'dracula/vim', as = 'dracula' }
   use 'ryanoasis/vim-devicons'
   use 'lukas-reineke/indent-blankline.nvim'
@@ -118,12 +163,7 @@ return require('packer').startup(function(use)
     requires = {
       -- LSP Support
       {'neovim/nvim-lspconfig'},             -- Required
-      {                                      -- Optional
-        'williamboman/mason.nvim',
-        run = function()
-          pcall(vim.cmd, 'MasonUpdate')
-        end,
-      },
+      {'williamboman/mason.nvim', run = ':MasonUpdate'},
       {'williamboman/mason-lspconfig.nvim'}, -- Optional
 
       -- Autocompletion
@@ -132,12 +172,40 @@ return require('packer').startup(function(use)
       {'L3MON4D3/LuaSnip'},     -- Required
     }
   }
-  use {'nvimtools/none-ls.nvim'}
+  use {'nvimtools/none-ls.nvim', commit = 'cc0a3c45047e3daf85d07c1571d65476cfce6480'}
   use {'MunifTanjim/prettier.nvim'}
   use {'stevearc/dressing.nvim'}
   use {'nvim-telescope/telescope.nvim', branch = '0.1.x'}
   use({
     "iamcco/markdown-preview.nvim",
     run = function() vim.fn["mkdp#util#install"]() end,
+  })
+  use {
+    'sudormrfbin/cheatsheet.nvim',
+
+    requires = {
+      {'nvim-telescope/telescope.nvim'},
+      {'nvim-lua/popup.nvim'},
+      {'nvim-lua/plenary.nvim'},
+    }
+  }
+  use 'laytan/cloak.nvim'
+  use({
+    "robitx/gp.nvim",
+    config = function()
+      local conf = {
+        providers = {
+          copilot = {
+            endpoint = "https://api.githubcopilot.com/chat/completions",
+            secret = {
+              "bash",
+              "-c",
+              "cat ~/.config/github-copilot/apps.json | sed -e 's/.*oauth_token...//;s/\".*//'",
+            },
+          },
+        }
+      }
+      require("gp").setup(conf)
+    end,
   })
 end)

@@ -7,13 +7,14 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("n", "<leader>ac", function() vim.lsp.buf.code_action() end, opts)
   vim.keymap.set("n", "<leader>ld", function() vim.diagnostic.open_float(0, {scope="line"}) end, opts)
+  vim.keymap.set("n", "<leader>nd", function() vim.diagnostic.goto_next() end, opts)
 end)
 
 lsp.ensure_installed({
   'lua_ls',
-  'tsserver',
+  'ts_ls',
   'rust_analyzer',
-  'clangd'
+  'clangd',
 })
 
 -- (Optional) Configure lua language server for neovim

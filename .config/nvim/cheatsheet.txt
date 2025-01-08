@@ -1,0 +1,17 @@
+# Modified from https://github.com/lifepillar/vim-cheat40/blob/master/cheat40.txt
+
+## tmux
+Rename session                | <C-B>$
+Detach session                | <C-B>d
+Show all session              | <C-B>s
+Close current window          | <C-B>&
+Previous window               | <C-B>p
+Next window                   | <C-B>n
+Rename window                 | <C-B>,
+Horizontal pane split         | <C-B>%
+Vertical pane split           | <C-B>"
+Switch to left pane           | <C-B>h
+Switch to below pane          | <C-B>j
+Switch to above pane          | <C-B>k
+Switch to right pane          | <C-B>l
+Close pane                    | <C-B>x

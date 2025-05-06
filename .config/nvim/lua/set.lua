@@ -17,16 +17,41 @@ vim.cmd('set guicursor+=a:-blinkwait75-blinkoff100-blinkon125')
 
 -- 2 space indented filetypes
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = {
+  pattern = {
     "markdown",
     "javascript",
     "javascriptreact",
     "lua",
     "typescript",
-    "typescriptreact"
+    "typescriptreact",
+    "html",
+    "json",
+    "terraform"
   },
-	callback = function()
-		vim.opt_local.shiftwidth = 2
-		vim.opt_local.tabstop = 2
-	end
+  callback = function()
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.tabstop = 2
+  end
+})
+
+-- 4 space indented filetypes
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {
+    "go"
+  },
+  callback = function()
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.tabstop = 4
+  end
+})
+
+
+-- tab indented filetypes
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {
+    "go"
+  },
+  callback = function()
+    vim.opt_local.expandtab = true
+  end
 })

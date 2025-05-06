@@ -7,7 +7,7 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("n", "<leader>ac", function() vim.lsp.buf.code_action() end, opts)
   vim.keymap.set("n", "<leader>ld", function() vim.diagnostic.open_float(0, {scope="line"}) end, opts)
-  vim.keymap.set("n", "<leader>nd", function() vim.diagnostic.goto_next() end, opts)
+  vim.diagnostic.config({ virtual_text = true })
 end)
 
 lsp.ensure_installed({
@@ -15,6 +15,7 @@ lsp.ensure_installed({
   'ts_ls',
   'rust_analyzer',
   'clangd',
+  'pyright',
 })
 
 -- (Optional) Configure lua language server for neovim
@@ -37,3 +38,4 @@ cmp.setup({
 })
 
 require('lspconfig').marksman.setup{}
+require('lspconfig').pyright.setup{}

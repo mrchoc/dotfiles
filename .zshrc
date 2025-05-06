@@ -8,9 +8,10 @@ fi
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-export GPG_TTY=$(tty)
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+export GPG_TTY=$TTY
 export PATH="/opt/homebrew/opt/gradle@7/bin:$PATH"
+export BAT_THEME="Dracula"
 
 # test startup time
 timezsh() {
@@ -22,6 +23,7 @@ timezsh() {
 export ZSH="$HOME/.oh-my-zsh"
 
 export EDITOR=nvim
+export XDG_CONFIG_HOME="/Users/ryanloh/.config"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -89,7 +91,7 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(nvm git)
+plugins=(nvm git kubectl docker)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -122,15 +124,26 @@ alias python2="/Users/ryanloh/.pyenv/versions/2.7.18/bin/python2.7"
 alias pip2="/Users/ryanloh/.pyenv/versions/2.7.18/bin/pip2.7"
 
 
-alias ls="exa"
-alias la="exa -a"
-alias ll="exa -lah"
+alias ls="eza"
+alias la="eza -a"
+alias ll="eza -lah"
 function ld() {
-    exa -lahTL "$1"
+    eza -lahTL "$1"
 }
 alias vim="nvim"
 
 alias yabai.up='$HOME/.config/yabai/./update.sh'
+
+function loadenv() {
+    export $(cat $1 | xargs)
+}
+
+function tfnotif() {
+    EXITCODE=$?
+    test $EXITCODE -eq 0 && curl -d "terraform applied ✅" ntfy.sh/terraform || curl -d "terraform failed ❌" ntfy.sh/terraform;
+}
+export K9S_CONFIG_DIR=/Users/ryanloh/.config/k9s
+
 
 export PATH=/opt/homebrew/bin:$PATH
 export HOMEBREW_NO_AUTO_UPDATE=1
@@ -162,6 +175,7 @@ function jcom() {
 }
 
 export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
 export CPPFLAGS="-I/opt/homebrew/opt/openjdk@17/include"
 export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 
@@ -171,9 +185,9 @@ export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 
 # java
-# export JAVA_HOME="/opt/homebrew/Cellar/openjdk@17/17.0.7/libexec/openjdk.jdk/Contents/Home"
-# export JAVA_HOME="/opt/homebrew/opt/openjdk@17/bin/java"
-export JAVA_HOME=$(/usr/libexec/java_home)
+export JAVA_HOME="/opt/homebrew/Cellar/openjdk@17/17.0.13/libexec/openjdk.jdk/Contents/Home"
+# export JAVA_HOME="/opt/homebrew/opt/openjdk@21/bin/java"
+# export JAVA_HOME=$(/usr/libexec/java_home)
 
 # pomodoro
 alias work="timer 25m && osascript -e 'display notification \"Work Timer is up! Take a Break 😊\" with title \"Pomodoro\"'"
@@ -182,6 +196,8 @@ alias rest="timer 5m && osascript -e 'display notification \"Break is over! Get 
 
 # openvpn
 export PATH="/opt/homebrew/Cellar/openvpn/2.6.0/sbin:$PATH"
+
+export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_FALLBACK_LIBRARY_PATH"
 
 # Dracula Theme (for zsh-syntax-highlighting)
 #
@@ -282,7 +298,10 @@ autoload -U +X bashcompinit && bashcompinit
 autoload -Uz compinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
+eval "$(fzf --zsh)"
+
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)

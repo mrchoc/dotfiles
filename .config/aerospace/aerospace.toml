@@ -15,7 +15,7 @@ after-login-command = []
 after-startup-command = ['exec-and-forget /opt/homebrew/bin/borders active_color=0xFFc9a8fa inactive_color=0x00FFFFFF order=above width=2.0 style="round" 2>/dev/null 1>&2 &']
 
 # Start AeroSpace at login
-start-at-login = true
+start-at-login = false
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
@@ -99,6 +99,8 @@ alt-shift-cmd-ctrl-h = 'focus --ignore-floating left'
 alt-shift-cmd-ctrl-j = 'focus --ignore-floating down'
 alt-shift-cmd-ctrl-k = 'focus --ignore-floating up'
 alt-shift-cmd-ctrl-l = 'focus --ignore-floating right'
+alt-shift-cmd-ctrl-d = 'focus-monitor --wrap-around next'
+alt-shift-cmd-ctrl-a = 'focus-monitor --wrap-around prev'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
 ctrl-shift-h = 'move left'
@@ -136,6 +138,9 @@ ctrl-shift-6 = 'move-node-to-workspace 6'
 ctrl-shift-7 = 'move-node-to-workspace 7'
 ctrl-shift-8 = 'move-node-to-workspace 8'
 ctrl-shift-9 = 'move-node-to-workspace 9'
+
+ctrl-shift-a = 'move-node-to-monitor prev'
+ctrl-shift-d = 'move-node-to-monitor next'
 
 alt-shift-h = 'join-with left'
 alt-shift-j = 'join-with down'
@@ -189,6 +194,8 @@ Prism Launcher|\
 iPhone Mirroring|\
 FaceTime|\
 Notes|\
-ChatGPT\
+ChatGPT|\
+WireGuard|\
+Preview\
 )"""
 run = ['layout floating']

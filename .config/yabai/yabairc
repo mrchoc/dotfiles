@@ -35,10 +35,14 @@ yabai -m rule --add app="^VLC" manage=off
 yabai -m rule --add app="^Cisco Secure Client" manage=off
 yabai -m rule --add app="^Numi" manage=off
 yabai -m rule --add app="^Calendar$" manage=off
+yabai -m rule --add app="^Prism Launcher$" manage=off
+yabai -m rule --add app="^iPhone Mirroring$" manage=off
+yabai -m rule --add app="^FaceTime$" manage=off sticky=on
+yabai -m rule --add app="^Notes$" manage=off
+yabai -m rule --add app="^ChatGPT$" manage=off sticky=on
 
 # Some random global settings
-#yabai -m config focus_follows_mouse          autoraise
-#yabai -m config focus_follows_mouse          on
+#yabai -m config mouse_follows_focus on
 # New window spawns to the right if vertical split, or bottom if horizontal split
 yabai -m config window_shadow off
 
@@ -79,6 +83,6 @@ yabai -m signal --add event=window_minimized action="yabai -m query --windows --
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus first"
 yabai -m signal --add event=space_changed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus first"
 
-borders active_color=0xFFc9a8fa inactive_color=0x00FFFFFF width=4.0 style="round" 2>/dev/null 1>&2 &
+borders active_color=0xFFc9a8fa inactive_color=0x00FFFFFF width=3.0 style="round"
 
 echo "yabai configuration loaded.."

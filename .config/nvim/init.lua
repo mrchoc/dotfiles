@@ -1,3 +1,5 @@
+require("config.lazy")
 require("set")
-require("packer_config")
-vim.g.mapleader = ' '
+
+vim.opt.list = true
+vim.opt.listchars:append("space:⋅")

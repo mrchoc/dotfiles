@@ -1,0 +1,258 @@
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
+end
+vim.opt.rtp:prepend(lazypath)
+
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading lazy.nvim so that mappings are correct.
+-- This is also a good place to setup other settings (vim.opt)
+vim.g.mapleader = " "
+
+require('lazy').setup({
+  spec = {
+    {
+      'nvim-lualine/lualine.nvim',
+      dependencies = { 'nvim-tree/nvim-web-devicons', opt = true }
+    },
+    { 'dracula/vim', as = 'dracula' },
+    'ryanoasis/vim-devicons',
+    'lukas-reineke/indent-blankline.nvim',
+    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+    'nvim-lua/plenary.nvim',
+    'jiangmiao/auto-pairs',
+    {'lewis6991/gitsigns.nvim', tag = "v1.0.0"},
+    'akinsho/toggleterm.nvim',
+    'mfussenegger/nvim-jdtls',
+    {
+      'VonHeikemen/lsp-zero.nvim',
+      branch = 'v2.x',
+      dependencies = {
+        -- LSP Support
+        {'neovim/nvim-lspconfig'},             -- Required
+        {'williamboman/mason.nvim', build = ':MasonUpdate'},
+        {'williamboman/mason-lspconfig.nvim'}, -- Optional
+
+        -- Autocompletion
+        {'hrsh7th/nvim-cmp'},     -- Required
+        {'hrsh7th/cmp-nvim-lsp'}, -- Required
+        {'L3MON4D3/LuaSnip'},     -- Required
+      }
+    },
+    {'nvimtools/none-ls.nvim'},
+    {'MunifTanjim/prettier.nvim'},
+    {'stevearc/dressing.nvim'},
+    {'nvim-telescope/telescope.nvim', branch = '0.1.x'},
+    {
+      "iamcco/markdown-preview.nvim",
+      build = function() vim.fn["mkdp#util#install"]() end,
+    },
+    {
+      'sudormrfbin/cheatsheet.nvim',
+
+      dependencies = {
+        {'nvim-telescope/telescope.nvim'},
+        {'nvim-lua/popup.nvim'},
+        {'nvim-lua/plenary.nvim'},
+      }
+    },
+    'laytan/cloak.nvim',
+    {
+      "robitx/gp.nvim",
+      config = function()
+        local conf = {
+          providers = {
+            copilot = {
+              endpoint = "https://api.githubcopilot.com/chat/completions",
+              secret = {
+                "bash",
+                "-c",
+                "cat ~/.config/github-copilot/apps.json | sed -e 's/.*oauth_token...//;s/\".*//'",
+              },
+            },
+          }
+        }
+        require("gp").setup(conf)
+      end,
+    }
+  },
+  install = { colorscheme = { "dracula" } },
+  checker = { enabled = true }
+})
+
+require('lualine').setup {
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {
+      {
+        'filename',
+        path = 2
+      }
+    },
+    lualine_x = {'encoding', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+}
+
+require("cheatsheet").setup({
+  bundled_cheatsheets = {
+    enabled = { "tmux" },
+  },
+  bundled_plugin_cheatsheets = {
+    enabled = { "gitsigns.nvim" },
+  }
+})
+
+require('cloak').setup({
+  enabled = false,
+})
+
+require('dressing').setup {
+  select = {
+    backend = {"builtin"}
+  }
+}
+
+require('gitsigns').setup {
+  current_line_blame_opts = {
+    delay = 0,
+  },
+  on_attach = function(bufnr)
+    local gitsigns = require('gitsigns')
+
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation
+    map('n', ']c', function()
+      if vim.wo.diff then
+        vim.cmd.normal({']c', bang = true})
+      else
+        gitsigns.nav_hunk('next')
+      end
+    end)
+
+    map('n', '[c', function()
+      if vim.wo.diff then
+        vim.cmd.normal({'[c', bang = true})
+      else
+        gitsigns.nav_hunk('prev')
+      end
+    end)
+
+    -- Actions
+    map('n', '<leader>hs', gitsigns.stage_hunk)
+    map('n', '<leader>hr', gitsigns.reset_hunk)
+
+    map('v', '<leader>hs', function()
+      gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+    end)
+
+    map('v', '<leader>hr', function()
+      gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+    end)
+
+    map('n', '<leader>hS', gitsigns.stage_buffer)
+    map('n', '<leader>hR', gitsigns.reset_buffer)
+    map('n', '<leader>hp', gitsigns.preview_hunk)
+    map('n', '<leader>hi', gitsigns.preview_hunk_inline)
+
+    map('n', '<leader>hb', function()
+      gitsigns.blame_line({ full = true })
+    end)
+
+    map('n', '<leader>hd', gitsigns.diffthis)
+
+    map('n', '<leader>hD', function()
+      gitsigns.diffthis('~')
+    end)
+
+    map('n', '<leader>hQ', function() gitsigns.setqflist('all') end)
+    map('n', '<leader>hq', gitsigns.setqflist)
+
+    -- Toggles
+    map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
+    map('n', '<leader>tw', gitsigns.toggle_word_diff)
+
+    -- Text object
+    map({'o', 'x'}, 'ih', gitsigns.select_hunk)
+  end
+}
+
+require("ibl").setup {
+  indent = {
+    char = "▏"
+  }
+}
+
+require('telescope').setup {
+  pickers = {
+    find_files = {
+      hidden = true
+    }
+  }
+}
+
+require('toggleterm').setup {
+  open_mapping = [[<c-t>]],
+  insert_mappings = true,
+  terminal_mappings = true,
+  float_opts = {
+    width = function()
+      return math.floor(vim.o.columns * 0.80)
+    end,
+    height = function()
+      return math.floor(vim.o.lines * 0.85)
+    end,
+    border = "curved"
+  },
+}
+
+require('nvim-treesitter.configs').setup {
+  ensure_installed = {
+    'javascript',
+    'typescript',
+    'tsx',
+    'python',
+    'go',
+    'c',
+    'dart',
+    'lua',
+    'html',
+    'css',
+    'prisma',
+    'java',
+    'rust',
+    'toml',
+    'markdown',
+    'markdown_inline',
+    'terraform',
+    'vimdoc',
+    'yaml',
+  },
+  sync_install = true,
+  highlight = {
+    enable = true,
+    disable = {
+      'vimdoc',
+      'txt'
+    }
+  },
+}
+

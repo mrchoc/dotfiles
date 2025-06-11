@@ -91,7 +91,7 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(nvm git kubectl docker)
+plugins=(nvm git kubectl aws docker)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -138,9 +138,9 @@ function loadenv() {
     export $(cat $1 | xargs)
 }
 
-function tfnotif() {
+function ntfy() {
     EXITCODE=$?
-    test $EXITCODE -eq 0 && curl -d "terraform applied ✅" ntfy.sh/terraform || curl -d "terraform failed ❌" ntfy.sh/terraform;
+    test $EXITCODE -eq 0 && curl -d "command completed ✅" ntfy.sh/$1 || curl -d "command failed ❌" ntfy.sh/$1;
 }
 export K9S_CONFIG_DIR=/Users/ryanloh/.config/k9s
 
@@ -198,6 +198,8 @@ alias rest="timer 5m && osascript -e 'display notification \"Break is over! Get 
 export PATH="/opt/homebrew/Cellar/openvpn/2.6.0/sbin:$PATH"
 
 export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_FALLBACK_LIBRARY_PATH"
+
+export WEZTERM_CONFIG_FILE="$HOME/.config/wezterm/wezterm.lua"
 
 # Dracula Theme (for zsh-syntax-highlighting)
 #
@@ -299,6 +301,7 @@ autoload -Uz compinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 

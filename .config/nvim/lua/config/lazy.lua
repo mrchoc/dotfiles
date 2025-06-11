@@ -35,21 +35,12 @@ require('lazy').setup({
     {'lewis6991/gitsigns.nvim', tag = "v1.0.0"},
     'akinsho/toggleterm.nvim',
     'mfussenegger/nvim-jdtls',
-    {
-      'VonHeikemen/lsp-zero.nvim',
-      branch = 'v2.x',
-      dependencies = {
-        -- LSP Support
-        {'neovim/nvim-lspconfig'},             -- Required
-        {'williamboman/mason.nvim', build = ':MasonUpdate'},
-        {'williamboman/mason-lspconfig.nvim'}, -- Optional
-
-        -- Autocompletion
-        {'hrsh7th/nvim-cmp'},     -- Required
-        {'hrsh7th/cmp-nvim-lsp'}, -- Required
-        {'L3MON4D3/LuaSnip'},     -- Required
-      }
-    },
+    {'L3MON4D3/LuaSnip'},
+    {'neovim/nvim-lspconfig'},
+    {'hrsh7th/nvim-cmp'},
+    {'hrsh7th/cmp-nvim-lsp'},
+    {'mason-org/mason.nvim'},
+    {'mason-org/mason-lspconfig.nvim'},
     {'nvimtools/none-ls.nvim'},
     {'MunifTanjim/prettier.nvim'},
     {'stevearc/dressing.nvim'},
@@ -85,11 +76,25 @@ require('lazy').setup({
         }
         require("gp").setup(conf)
       end,
-    }
+    },
+    'towolf/vim-helm'
   },
   install = { colorscheme = { "dracula" } },
   checker = { enabled = true }
 })
+
+require("mason").setup()
+
+require("mason-lspconfig").setup {
+  ensure_installed = {
+    'lua_ls',
+    'ts_ls',
+    'rust_analyzer',
+    'clangd',
+    'gopls',
+    'helm_ls'
+  }
+}
 
 require('lualine').setup {
   sections = {
@@ -104,6 +109,19 @@ require('lualine').setup {
     lualine_x = {'encoding', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {
+      {
+        'filename',
+        path = 2
+      }
+    },
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
   },
 }
 

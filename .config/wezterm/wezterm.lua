@@ -16,10 +16,11 @@ config.color_scheme = 'Dracula'
 config.colors = {
   background = '#14151b'
 }
-config.font = wezterm.font(
-  'RobotoMono Nerd Font', {
-  weight = 'Bold'
+config.font = wezterm.font_with_fallback({
+  { family = 'RobotoMono Nerd Font', weight = 'Bold' },
+  { family = 'Apple Color Emoji' }
 })
+config.unicode_version = 14
 config.cell_width = 0.9
 config.font_size = 14
 config.line_height = 0.87

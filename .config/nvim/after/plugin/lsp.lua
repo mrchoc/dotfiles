@@ -1,31 +1,16 @@
-local lsp = require('lsp-zero').preset({})
-
-lsp.on_attach(function(client, bufnr)
-  lsp.default_keymaps({buffer = bufnr})
-
-  local opts = {buffer = bufnr, remap = false}
-  vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
-  vim.keymap.set("n", "<leader>ac", function() vim.lsp.buf.code_action() end, opts)
-  vim.keymap.set("n", "<leader>ld", function() vim.diagnostic.open_float(0, {scope="line"}) end, opts)
-  vim.diagnostic.config({ virtual_text = true })
-end)
-
-lsp.ensure_installed({
-  'lua_ls',
-  'ts_ls',
-  'rust_analyzer',
-  'clangd',
-  'pyright',
-})
-
--- (Optional) Configure lua language server for neovim
-require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
-lsp.skip_server_setup({'jdtls'})
-
-lsp.setup()
-
 local cmp = require('cmp')
 cmp.setup({
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  }, {
+    { name = 'buffer' },
+  }),
   preselect = 'item',
   completion = {
     completeopt = 'menu,menuone,noinsert'
@@ -37,5 +22,36 @@ cmp.setup({
   }
 })
 
-require('lspconfig').marksman.setup{}
-require('lspconfig').pyright.setup{}
+vim.lsp.config('gopls', {
+  on_attach = function (_, buffer)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = buffer,
+      callback = function()
+        vim.lsp.buf.format { async = false }
+      end
+    })
+  end
+})
+
+vim.lsp.config('helm_ls', {
+  settings = {
+    ['helm-ls'] = {
+      yamlls = {
+        path = "yaml-language-server",
+      }
+    }
+  }
+})
+
+vim.lsp.config('lua_ls', {
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = {'vim'}
+      }
+    }
+  }
+})
+
+vim.diagnostic.config({ virtual_text = true })
+

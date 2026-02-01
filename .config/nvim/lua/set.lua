@@ -13,6 +13,7 @@ vim.opt.nu = true
 vim.opt.signcolumn = "yes"
 vim.opt.termguicolors = true
 vim.opt.colorcolumn = "80"
+vim.opt.winborder = "rounded"
 vim.cmd('set guicursor+=a:-blinkwait75-blinkoff100-blinkon125')
 vim.cmd('set statusline+=%F')
 
@@ -27,7 +28,9 @@ vim.api.nvim_create_autocmd("FileType", {
     "typescriptreact",
     "html",
     "json",
-    "terraform"
+    "terraform",
+    "vue",
+    "css"
   },
   callback = function()
     vim.opt_local.shiftwidth = 2

@@ -12,7 +12,7 @@ config.window_padding = {
   bottom = 3,
 }
 
-config.color_scheme = 'Dracula'
+config.color_scheme = 'rose-pine'
 config.colors = {
   background = '#14151b'
 }
@@ -22,10 +22,10 @@ config.font = wezterm.font_with_fallback({
 })
 config.unicode_version = 14
 config.cell_width = 0.9
-config.font_size = 14
+config.font_size = 13
 config.line_height = 0.87
 
-config.window_background_opacity = 0.85
+config.window_background_opacity = 0.90
 config.macos_window_background_blur = 20
 config.window_decorations = "RESIZE"
 config.hide_tab_bar_if_only_one_tab = true

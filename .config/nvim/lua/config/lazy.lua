@@ -26,13 +26,12 @@ require('lazy').setup({
       'nvim-lualine/lualine.nvim',
       dependencies = { 'nvim-tree/nvim-web-devicons', opt = true }
     },
-    { 'dracula/vim', as = 'dracula' },
     'ryanoasis/vim-devicons',
     'lukas-reineke/indent-blankline.nvim',
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
     'nvim-lua/plenary.nvim',
     'jiangmiao/auto-pairs',
-    {'lewis6991/gitsigns.nvim', tag = "v1.0.0"},
+    {'lewis6991/gitsigns.nvim'},
     'akinsho/toggleterm.nvim',
     'mfussenegger/nvim-jdtls',
     {'L3MON4D3/LuaSnip'},
@@ -44,14 +43,9 @@ require('lazy').setup({
     {'nvimtools/none-ls.nvim'},
     {'MunifTanjim/prettier.nvim'},
     {'stevearc/dressing.nvim'},
-    {'nvim-telescope/telescope.nvim', branch = '0.1.x'},
-    {
-      "iamcco/markdown-preview.nvim",
-      build = function() vim.fn["mkdp#util#install"]() end,
-    },
+    {'nvim-telescope/telescope.nvim'},
     {
       'sudormrfbin/cheatsheet.nvim',
-
       dependencies = {
         {'nvim-telescope/telescope.nvim'},
         {'nvim-lua/popup.nvim'},
@@ -77,11 +71,34 @@ require('lazy').setup({
         require("gp").setup(conf)
       end,
     },
-    'towolf/vim-helm'
+    'towolf/vim-helm',
+    { "rose-pine/neovim",
+      name = "rose-pine"
+    },
+    {
+      "davidmh/mdx.nvim",
+      dependencies = {"nvim-treesitter/nvim-treesitter"}
+    },
+    "gbprod/yanky.nvim",
+    {
+      "iamcco/markdown-preview.nvim",
+      cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+      build = "cd app && yarn install",
+      init = function()
+        vim.g.mkdp_filetypes = { "markdown" }
+      end,
+      ft = { "markdown" },
+    },
   },
-  install = { colorscheme = { "dracula" } },
   checker = { enabled = true }
 })
+
+require("rose-pine").setup({
+  variant = "main",
+  dim_inactive_windows = true,
+})
+
+require("yanky").setup()
 
 require("mason").setup()
 
@@ -92,7 +109,8 @@ require("mason-lspconfig").setup {
     'rust_analyzer',
     'clangd',
     'gopls',
-    'helm_ls'
+    'helm_ls',
+    'elixirls'
   }
 }
 
@@ -223,8 +241,8 @@ require('telescope').setup {
   pickers = {
     find_files = {
       hidden = true
-    }
-  }
+    },
+  },
 }
 
 require('toggleterm').setup {
@@ -263,6 +281,9 @@ require('nvim-treesitter.configs').setup {
     'terraform',
     'vimdoc',
     'yaml',
+    'bash',
+    'vue',
+    'elixir'
   },
   sync_install = true,
   highlight = {
@@ -273,4 +294,3 @@ require('nvim-treesitter.configs').setup {
     }
   },
 }
-

@@ -11,15 +11,15 @@ cmp.setup({
   }, {
     { name = 'buffer' },
   }),
-  preselect = 'item',
-  completion = {
-    completeopt = 'menu,menuone,noinsert'
-  },
+  -- preselect = cmp.PreselectMode.None,
+  -- completion = {
+  --   completeopt = 'menu,menuone,noinsert,noselect'
+  -- },
   mapping = {
     ['<CR>'] = cmp.mapping.confirm({select = false}),
     ['<Tab>'] = cmp.mapping.select_next_item(),
     ['<S-Tab>'] = cmp.mapping.select_prev_item()
-  }
+  },
 })
 
 vim.lsp.config('gopls', {
@@ -55,3 +55,34 @@ vim.lsp.config('lua_ls', {
 
 vim.diagnostic.config({ virtual_text = true })
 
+-- If you are using mason.nvim, you can get the ts_plugin_path like this
+-- For Mason v1,
+-- local mason_registry = require('mason-registry')
+-- local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+-- For Mason v2,
+-- local vue_language_server_path = vim.fn.expand '$MASON/packages' .. '/vue-language-server' .. '/node_modules/@vue/language-server'
+-- or even
+local vue_language_server_path = vim.fn.stdpath('data') .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
+local vue_plugin = {
+  name = '@vue/typescript-plugin',
+  location = vue_language_server_path,
+  languages = { 'vue' },
+  configNamespace = 'typescript',
+}
+local vtsls_config = {
+  settings = {
+    vtsls = {
+      tsserver = {
+        globalPlugins = {
+          vue_plugin,
+        },
+      },
+    },
+  },
+  filetypes = { 'typescript', 'javascript', 'vue' },
+}
+-- If you are on most recent `nvim-lspconfig`
+local vue_ls_config = {}
+-- nvim 0.11 or above
+vim.lsp.config('vtsls', vtsls_config)
+vim.lsp.config('vue_ls', vue_ls_config)

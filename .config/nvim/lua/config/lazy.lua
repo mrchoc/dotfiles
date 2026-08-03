@@ -88,7 +88,7 @@ require('lazy').setup({
         vim.g.mkdp_filetypes = { "markdown" }
       end,
       ft = { "markdown" },
-    },
+    }
   },
   checker = { enabled = true }
 })
@@ -110,7 +110,6 @@ require("mason-lspconfig").setup {
     'clangd',
     'gopls',
     'helm_ls',
-    'elixirls'
   }
 }
 
@@ -260,37 +259,28 @@ require('toggleterm').setup {
   },
 }
 
-require('nvim-treesitter.configs').setup {
-  ensure_installed = {
-    'javascript',
-    'typescript',
-    'tsx',
-    'python',
-    'go',
-    'c',
-    'dart',
-    'lua',
-    'html',
-    'css',
-    'prisma',
-    'java',
-    'rust',
-    'toml',
-    'markdown',
-    'markdown_inline',
-    'terraform',
-    'vimdoc',
-    'yaml',
-    'bash',
-    'vue',
-    'elixir'
-  },
-  sync_install = true,
-  highlight = {
-    enable = true,
-    disable = {
-      'vimdoc',
-      'txt'
-    }
-  },
+require('nvim-treesitter').install {
+  'javascript',
+  'typescript',
+  'tsx',
+  'python',
+  'go',
+  'c',
+  'dart',
+  'lua',
+  'html',
+  'css',
+  'prisma',
+  'java',
+  'rust',
+  'toml',
+  'markdown',
+  'markdown_inline',
+  'terraform',
+  'vimdoc',
+  'yaml',
+  'bash',
+  'vue',
+  'elixir'
 }
+

@@ -231,7 +231,3 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/ryanloh/.lmstudio/bin"
 # End of LM Studio CLI section
-
-
-# OpenClaw Completion
-source <(openclaw completion --shell zsh)

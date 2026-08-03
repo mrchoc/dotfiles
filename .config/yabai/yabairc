@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-sudo yabai --load-sa
 #YABAI STUFF
 
 #yabai -m config layout bsp
@@ -9,49 +7,56 @@ sudo yabai --load-sa
 # float system preferences. Most of these just diable Yabai form resizing them.
 yabai -m rule --add app=".*" sub-layer=normal
 yabai -m rule --apply
-yabai -m rule --add app="^System Settings$" manage=off
-yabai -m rule --add app="^Karabiner-Elements$" manage=off
-yabai -m rule --add app="^Karabiner-EventViewer$" manage=off
-yabai -m rule --add app="^Finder$" manage=off sticky=on
-yabai -m rule --add app="^Disk Utility$" manage=off
-yabai -m rule --add app="^System Information$" manage=off
-yabai -m rule --add app="^Activity Monitor$" manage=off
-yabai -m rule --add app="^Spotify$" manage=off
-yabai -m rule --add app="^Telegram$" manage=off sticky=on
-yabai -m rule --add app="^Stats$" manage=off
-yabai -m rule --add app="^zoom.us$" manage=off
-yabai -m rule --add app="WhatsApp" manage=off
-yabai -m rule --add app="^VIA$" manage=off
-yabai -m rule --add app="^TinkerTool$" manage=off
-yabai -m rule --add app="^Discord$" manage=off
-yabai -m rule --add app="^App Store$" manage=off
-yabai -m rule --add app="^Home Assistant$" manage=off
-yabai -m rule --add title="^Steam$" manage=off
-yabai -m rule --add app="^Calculator$" manage=off
-yabai -m rule --add app="^Archetype" manage=off
-yabai -m rule --add app="^Riot Client$" manage=off
-yabai -m rule --add app="^League of Legends$" manage=off
-yabai -m rule --add app="^VLC" manage=off
-yabai -m rule --add app="^Cisco Secure Client" manage=off
-yabai -m rule --add app="^Numi" manage=off
-yabai -m rule --add app="^Calendar$" manage=off
-yabai -m rule --add app="^Prism Launcher$" manage=off
-yabai -m rule --add app="^iPhone Mirroring$" manage=off
-yabai -m rule --add app="^FaceTime$" manage=off sticky=on
-yabai -m rule --add app="^Notes$" manage=off
-yabai -m rule --add app="^ChatGPT$" manage=off sticky=on
-yabai -m rule --add app="^TrackWeight$" manage=off
-yabai -m rule --add app="^BetterDisplay$" manage=off
-yabai -m rule --add app="^AlDente$" manage=off
-yabai -m rule --add app="^TextEdit$" manage=off
-yabai -m rule --add app="^Raycast$" manage=off
-yabai -m rule --add app="^Gemini$" manage=off
-yabai -m rule --add app="^OpenClaw$" manage=off
 
+appsToIgnore=(
+    "System Settings"
+    "Karabiner-Elements"
+    "Karabiner-EventViewer"
+    "Disk Utility"
+    "System Information"
+    "Activity Monitor"
+    "Spotify"
+    "Stats"
+    "zoom.us"
+    "VIA"
+    "TinkerTool"
+    "Discord"
+    "App Store"
+    "Home Assistant"
+    "Calculator"
+    "Archetype"
+    "Riot Client"
+    "League of Legends"
+    "VLC"
+    "Cisco Secure Client"
+    "Numi"
+    "Calendar"
+    "Prism Launcher"
+    "iPhone Mirroring"
+    "FaceTime"
+    "Notes"
+    "ChatGPT"
+    "TrackWeight"
+    "BetterDisplay"
+    "AlDente"
+    "TextEdit"
+    "Raycast"
+    "Gemini"
+    "OpenClaw"
+)
+
+for item in "${appsToIgnore[@]}"; do
+    yabai -m rule --add app="^$item$" manage=off
+done
+yabai -m rule --add app="WhatsApp" manage=off
+yabai -m rule --add title="^Steam$" manage=off
+yabai -m rule --add app="Zen" title="Picture-in-Picture" manage=off
+yabai -m rule --add app="Finder" sticky=on manage=off
+yabai -m rule --add app="Telegram" sticky=on manage=off
+ 
 # Some random global settings
 #yabai -m config mouse_follows_focus on
 # New window spawns to the right if vertical split, or bottom if horizontal split
-yabai -m config window_shadow off
 
 # yabai -m config window_border on
 # yabai -m config window_border_blur off
@@ -90,6 +95,6 @@ yabai -m signal --add event=window_minimized action="yabai -m query --windows --
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus first"
 yabai -m signal --add event=space_changed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus first"
 
-borders active_color=0xFFc9a8fa inactive_color=0x00FFFFFF width=3.0 style="round"
+borders active_color=0xFFc9a8fa inactive_color=0x00FFFFFF width=1.5 style="round" order="above" hidpi="on"
 
 echo "yabai configuration loaded.."

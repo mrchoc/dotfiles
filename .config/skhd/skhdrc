@@ -23,11 +23,7 @@ hyper - r: yabai -m space --rotate 180;
 hyper - q: yabai -m space --focus prev || yabai -m space --focus last;
 hyper - e: yabai -m space --focus next || yabai -m space --focus first;
 
-hyper - i: yabai -m space --create;
-hyper - o: yabai -m space --destroy;
-
 hyper - return: open -na /Applications/WezTerm.app
-alt - space: open -na /Users/ryanloh/Applications/Gemini.app
 
 ctrl + alt + cmd - r: yabai --restart-service
 ctrl + alt + cmd - h: skhd --restart-service
